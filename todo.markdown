@@ -5,6 +5,7 @@
 - parse yaml config at the top of post markdown
 - Create the project build script so can do `postit new`
   - Should have templates for a page, a post, stylesheet etc and folders
+  - Make the default home page have links to the latest 5 posts, then another section with all the posts by category (then sorted by date within category)
 - Set up config file for bucket and home page etc.
 - Deploy to crates.io
 - Write test for build script
