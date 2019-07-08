@@ -1,0 +1,13 @@
+- Write the build script
+  - Convert markdown files in posts directory
+  - Convert .erb equivilant files in pages directory
+- Write the upload script
+- parse yaml config at the top of post markdown
+- Create the project build script so can do `postit new`
+  - Should have templates for a page, a post, stylesheet etc and folders
+- Set up config file for bucket and home page etc.
+- Deploy to crates.io
+- Write test for build script
+- Create circuit8.dev with Postit
+- Write a nice guide on the .readme
+- Put a post about it on circuit8.dev
