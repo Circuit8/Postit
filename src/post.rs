@@ -11,21 +11,24 @@ struct Post {
 
 impl Post {
   fn new(markdown: &str) -> Post {
-    // parse the markdown into html
-    // parse the yaml config at the top into the title and category
-    match parse_and_find_content(markdown) {
-      Some(result) => {
-        println(result);
-      },
+    let mut title = String::from("Untitled");
+    let mut category = String::from("Uncategorised");
+    let mut html;
 
-      None(result) => {
-        println(result);
+    match parse_and_find_content(markdown.trim()) {
+      Ok((matter, markdown)) => {
+        if let Some(yaml) = matter {
+          title = yaml["title"].as_str().unwrap().to_string();
+          category = yaml["category"].as_str().unwrap().to_string();
+        }
+        html = markdown_to_html(markdown, &ComrakOptions::default());
+      }
+
+      Err(e) => {
+        println!("{}", e);
+        html = markdown_to_html(markdown, &ComrakOptions::default());
       }
     }
-
-    let html = markdown_to_html(markdown, &ComrakOptions::default());
-    let title = String::from("Untitled");
-    let category = String::from("Uncategorised");
 
     Post {
       markdown: String::from(markdown),
@@ -46,13 +49,13 @@ mod tests {
     use super::super::*;
 
     const MARKDOWN: &str = r#"
-      ---
-      title = badger
-      category = bodger
-      ---
+---
+title: "badger"
+category: "bodger"
+---
 
-      - This is
-      - A list
+- This is
+- A list
     "#;
 
     #[test]
