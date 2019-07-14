@@ -1,10 +1,10 @@
 - Create Page Struct
   - Pass in string .erb string like we do for post
-  - Ignore frontmatter here
+  - pass in post structs so we can use them in the templates
+  - Ignore frontmatter here for now
   - Have output html like post
 - Write the build script
   - ~~Convert markdown files in posts directory~~
-  - Convert .erb equivilant files in pages directory (pass in post structs)
   - Copy across HTML to the dist directory
   - Copy across styles to the dist directory
   - Copy across JS to the dist directory
