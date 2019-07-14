@@ -37,10 +37,6 @@ impl Post {
       title,
     }
   }
-
-  // fn from_file() -> Post {
-
-  // }
 }
 
 #[cfg(test)]

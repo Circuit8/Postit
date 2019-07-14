@@ -1,8 +1,15 @@
+- Create Page Struct
+  - Pass in string .erb string like we do for post
+  - Ignore frontmatter here
+  - Have output html like post
 - Write the build script
-  - Convert markdown files in posts directory
-  - Convert .erb equivilant files in pages directory
-- Write the upload script
-- parse yaml config at the top of post markdown
+  - ~~Convert markdown files in posts directory~~
+  - Convert .erb equivilant files in pages directory (pass in post structs)
+  - Copy across HTML to the dist directory
+  - Copy across styles to the dist directory
+  - Copy across JS to the dist directory
+  - Clean the dist directory first
+- ~~parse yaml config at the top of post markdown~~
 - Create the project build script so can do `postit new`
   - Should have templates for a page, a post, stylesheet etc and folders
   - Make the default home page have links to the latest 5 posts, then another section with all the posts by category (then sorted by date within category)
