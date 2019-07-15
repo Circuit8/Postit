@@ -2,7 +2,7 @@
 use comrak::{markdown_to_html, ComrakOptions};
 use frontmatter::parse_and_find_content;
 
-struct Post {
+pub struct Post {
   markdown: String,
   title: String,
   category: String,
