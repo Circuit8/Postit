@@ -1,8 +1,10 @@
+- ~~Create Post Struct~~
 - Create Page Struct
-  - Pass in string .erb string like we do for post
-  - pass in post structs so we can use them in the templates
-  - Ignore frontmatter here for now
-  - Have output html like post
+  - ~~Pass in string .erb string like we do for post~~
+  - ~~pass in post structs so we can use them in the templates~~
+  - ~~Ignore frontmatter here for now~~
+  - ~~Have output html like post~~
+  - Allow rendering partials
 - Write the build script
   - ~~Convert markdown files in posts directory~~
   - Copy across HTML to the dist directory

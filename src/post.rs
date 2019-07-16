@@ -1,16 +1,18 @@
 #![allow(dead_code)]
 use comrak::{markdown_to_html, ComrakOptions};
 use frontmatter::parse_and_find_content;
+use serde::{Deserialize, Serialize};
 
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Post {
-  markdown: String,
-  title: String,
-  category: String,
-  html: String,
+  pub markdown: String,
+  pub title: String,
+  pub category: String,
+  pub html: String,
 }
 
 impl Post {
-  fn new(markdown: &str) -> Post {
+  pub fn new(markdown: &str) -> Post {
     let mut title = String::from("Untitled");
     let mut category = String::from("Uncategorised");
     let mut html;
