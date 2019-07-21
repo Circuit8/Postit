@@ -13,8 +13,7 @@ pub trait Doc {
   }
 
   fn process(&mut self) {
-    // self.process_content()
-    // self.
+    // self.output_html = self.wrap_in_template(self.process_content())
   }
 
   // Override me
@@ -25,7 +24,7 @@ pub trait Doc {
   fn wrap_in_template(&mut self) {}
 
   // Takes a path like "./dist/posts"
-  // Outputs self.html there with a filename based off self.path
+  // Outputs self.output_html there with a filename based off self.source_Path
   fn output_to(&self, path: &str) {}
 
   // Do we need this here? I think we do cant rely on properties of implemntors
