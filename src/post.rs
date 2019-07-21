@@ -2,52 +2,49 @@
 use comrak::{markdown_to_html, ComrakOptions};
 use frontmatter::parse_and_find_content;
 use serde::{Deserialize, Serialize};
-use std::fs::File;
-use std::io::prelude::*;
+use super::doc::Doc;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Post {
-  pub markdown: String,
+  pub source_content: Option<String>,
+  pub output_html: Option<String>,
   pub title: String,
   pub category: String,
-  pub output_html: String,
-  pub path: String,
+  pub source_path: String,
 }
 
+impl Doc for Post {}
+
 impl Post {
-  pub fn new(path: &str) -> Post {
+  pub fn new(source_path: &str) -> Post {
+    Post {
+      source_content: None,
+      output_html: None,
+      category: "Uncategorized".to_string(),
+      title: "Untitled".to_string(),
+      source_path: String::from(source_path),
+    }
+  }
+
+  pub fn process_content(&mut self) -> String {
+    let source_content = self.source_content.unwrap();
+
     let mut title = String::from("Untitled");
     let mut category = String::from("Uncategorised");
-    let mut output_html;
 
-    let mut file = File::open(path).expect("Can't open path");
-    let mut markdown = String::new();
-    file
-      .read_to_string(&mut markdown)
-      .expect("Can't read from file");
-    let markdown = markdown.trim().to_string();
-
-    match parse_and_find_content(&markdown) {
+    match parse_and_find_content(&source_content) {
       Ok((matter, markdown)) => {
         if let Some(yaml) = matter {
-          title = yaml["title"].as_str().unwrap().to_string();
-          category = yaml["category"].as_str().unwrap().to_string();
+          self.title = yaml["title"].as_str().unwrap().to_string();
+          self.category = yaml["category"].as_str().unwrap().to_string();
         }
-        output_html = markdown_to_html(markdown, &ComrakOptions::default());
+        return markdown_to_html(&source_content, &ComrakOptions::default());
       }
 
       Err(e) => {
         println!("{}", e);
-        output_html = markdown_to_html(&markdown, &ComrakOptions::default());
+        return markdown_to_html(&source_content, &ComrakOptions::default());
       }
-    }
-
-    Post {
-      markdown,
-      output_html,
-      category,
-      title,
-      path: String::from(path),
     }
   }
 }
@@ -57,27 +54,60 @@ mod tests {
   mod new {
     use super::super::*;
 
-    #[test]
     fn sets_the_defaults() {
-      let post = Post::new("./test/assets/posts/simple.markdown");
-      assert_eq!(post.markdown, "Hello `world`!");
+      let path = "./test/assets/posts/simple.markdown";
+      let post = Post::new(path);
+
       assert_eq!(post.category, "Uncategorised");
       assert_eq!(post.title, "Untitled");
+      assert_eq!(post.source_path, path);
+    }
+  }
+
+  mod process_content {
+    use super::super::*;
+    use std::fs::File;
+    use std::io::prelude::*;
+
+    fn load_file(path: &str) -> String {
+      let mut file = File::open(path).unwrap();
+      let mut contents = String::new();
+      file
+        .read_to_string(&mut contents)
+        .expect("Can't read from file");
+
+      contents.trim().to_string()
     }
 
     #[test]
     fn converts_the_html_correctly_with_a_simple_input() {
-      let post = Post::new("./test/assets/posts/post.markdown");
+      let path = "test/assets/posts/post.markdown";
+      let post = Post {
+        source_content: Some(load_file(path)),
+        output_html: None,
+        category: "Uncategorized".to_string(),
+        title: "Untitled".to_string(),
+        source_path: String::from(path),
+      };
 
       assert_eq!(
-        post.output_html,
+        post.process_content(),
         "<ul>\n<li>This is</li>\n<li>A list</li>\n</ul>\n"
       )
     }
 
     #[test]
     fn saves_the_config_title_and_category_correctly() {
-      let post = Post::new("./test/assets/posts/post.markdown");
+      let path = "test/assets/posts/post.markdown";
+      let post = Post {
+        source_content: Some(load_file(path)),
+        output_html: None,
+        category: "Uncategorized".to_string(),
+        title: "Untitled".to_string(),
+        source_path: String::from(path),
+      };
+
+      post.process_content();
 
       assert_eq!(post.title, "badger");
       assert_eq!(post.category, "bodger");
