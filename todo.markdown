@@ -1,15 +1,28 @@
-- ~~Create Post Struct~~
-- ~~Create Page Struct~~
+- Create Post Struct
+  - Should take a template name in the options
+  - ~~Add path to post struct and make it load from path~~
+- Create Page Struct
   - ~~Pass in string .erb string like we do for post~~
   - ~~pass in post structs so we can use them in the templates~~
   - ~~Ignore frontmatter here for now~~
   - ~~Have output html like post~~
-  - ~~Allow partials in Page struct~~
+  - ~~Allow partials in Page struct~~#
+  - Should take a template name in the options
+  - Add path to page struct and make it load from the file like the post does
+- Add `sheet` trait
+  - Change Page and Post so that `new` doesnt really do much, they both have a `process` or something method which does it all
+  - To implement this trait the type requires a HTML, a path, and a template.
+  - It provides a method called `wrap_in_template` or something, which takes the HTML of the the post/page and embeds it within the template of the page / post. Perhaps this is called within each structs `process` method
+  - It provides another method called `output_to(path: Path)`, which outputs the final interpolated HTML + template to that directory
+  - Test
+  - Add to page and post
 - Write the build script
   - ~~Convert markdown files in posts directory~~
+  - Should wrap pages and posts in their given template
+  - Template should be able to render partials (perhaps the ability to render partials should be a trait?)
   - Copy across HTML to the dist directory
-  - Copy across styles to the dist directory
-  - Copy across JS to the dist directory
+  - Copy across all the styles to the dist directory (dont concat yet)
+  - Copy across JS to the dist directory (dont concat yet)
   - Clean the dist directory first
 - ~~parse yaml config at the top of post markdown~~
 - Create the project build script so can do `postit new`

@@ -1,3 +1,4 @@
+// mod commands;
 mod page;
 mod partial;
 mod post;

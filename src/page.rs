@@ -7,6 +7,7 @@ use std::collections::HashMap;
 struct Page {
   pub template: String,
   pub html: String,
+  // pub path: String,
 }
 
 impl Page {
@@ -61,6 +62,7 @@ mod tests {
         html: "".to_string(),
         title: "Title".to_string(),
         category: "Badger".to_string(),
+        path: "test/path.html".to_string(),
       };
 
       let template = r#"
