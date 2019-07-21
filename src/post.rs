@@ -10,7 +10,7 @@ pub struct Post {
   pub markdown: String,
   pub title: String,
   pub category: String,
-  pub html: String,
+  pub output_html: String,
   pub path: String,
 }
 
@@ -18,7 +18,7 @@ impl Post {
   pub fn new(path: &str) -> Post {
     let mut title = String::from("Untitled");
     let mut category = String::from("Uncategorised");
-    let mut html;
+    let mut output_html;
 
     let mut file = File::open(path).expect("Can't open path");
     let mut markdown = String::new();
@@ -33,18 +33,18 @@ impl Post {
           title = yaml["title"].as_str().unwrap().to_string();
           category = yaml["category"].as_str().unwrap().to_string();
         }
-        html = markdown_to_html(markdown, &ComrakOptions::default());
+        output_html = markdown_to_html(markdown, &ComrakOptions::default());
       }
 
       Err(e) => {
         println!("{}", e);
-        html = markdown_to_html(&markdown, &ComrakOptions::default());
+        output_html = markdown_to_html(&markdown, &ComrakOptions::default());
       }
     }
 
     Post {
       markdown,
-      html,
+      output_html,
       category,
       title,
       path: String::from(path),
@@ -62,7 +62,7 @@ mod tests {
       let post = Post::new("./test/assets/posts/simple.markdown");
       assert_eq!(post.markdown, "Hello `world`!");
       assert_eq!(post.category, "Uncategorised");
-      assert_eq!(post.title, "Untitled")
+      assert_eq!(post.title, "Untitled");
     }
 
     #[test]
@@ -70,7 +70,7 @@ mod tests {
       let post = Post::new("./test/assets/posts/post.markdown");
 
       assert_eq!(
-        post.html,
+        post.output_html,
         "<ul>\n<li>This is</li>\n<li>A list</li>\n</ul>\n"
       )
     }
@@ -82,7 +82,6 @@ mod tests {
       assert_eq!(post.title, "badger");
       assert_eq!(post.category, "bodger");
     }
-
   }
 
   mod from_file {}

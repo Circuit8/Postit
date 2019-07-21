@@ -1,17 +1,15 @@
-- Create Post Struct
-  - Should take a template name in the options
+- ~~Create Post Struct~~
   - ~~Add path to post struct and make it load from path~~
-- Create Page Struct
+- ~~Create Page Struct~~
   - ~~Pass in string .erb string like we do for post~~
   - ~~pass in post structs so we can use them in the templates~~
   - ~~Ignore frontmatter here for now~~
   - ~~Have output html like post~~
-  - ~~Allow partials in Page struct~~#
-  - Should take a template name in the options
-  - Add path to page struct and make it load from the file like the post does
-- Add `sheet` trait
-  - Change Page and Post so that `new` doesnt really do much, they both have a `process` or something method which does it all
-  - To implement this trait the type requires a HTML, a path, and a template.
+  - ~~Allow partials in Page struct~~
+  - ~~Add path to page struct and make it load from the file like the post does~~
+- Add `sheet` or `entity` or `document` trait
+  - Change Page and Post so that `new` doesnt really do much, they both have a `process` or something method which does it all.
+  - To implement this trait the type requires an `output_html` and `path`
   - It provides a method called `wrap_in_template` or something, which takes the HTML of the the post/page and embeds it within the template of the page / post. Perhaps this is called within each structs `process` method
   - It provides another method called `output_to(path: Path)`, which outputs the final interpolated HTML + template to that directory
   - Test
