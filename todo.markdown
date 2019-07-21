@@ -7,7 +7,7 @@
   - ~~Have output html like post~~
   - ~~Allow partials in Page struct~~
   - ~~Add path to page struct and make it load from the file like the post does~~
-- Add `sheet` or `entity` or `document` trait
+- Add  `doc` trait
   - Change Page and Post so that `new` doesnt really do much, they both have a `process` or something method which does it all.
   - To implement this trait the type requires an `output_html` and `path`
   - It provides a method called `wrap_in_template` or something, which takes the HTML of the the post/page and embeds it within the template of the page / post. Perhaps this is called within each structs `process` method
