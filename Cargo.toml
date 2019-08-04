@@ -13,3 +13,4 @@ handlebars = "2.0.1"
 serde_json = "1.0.40"
 serde = { version = "1.0.95", features = ["derive"] }
 uuid = { version = "0.7", features = ["serde", "v4"] }
+walkdir = "2.2.9"

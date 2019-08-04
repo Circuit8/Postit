@@ -11,6 +11,7 @@ pub struct Post {
   pub title: String,
   pub category: String,
   pub source_path: String,
+  pub layout_path: String,
 }
 
 impl Doc for Post {
@@ -37,6 +38,10 @@ impl Doc for Post {
     self.source_content = Some(content);
   }
 
+  fn layout_path(&self) -> &str {
+    &self.layout_path
+  }
+
   fn source_path(&self) -> &str {
     &self.source_path
   }
@@ -51,13 +56,14 @@ impl Doc for Post {
 }
 
 impl Post {
-  pub fn new(source_path: &str) -> Post {
+  pub fn new(source_path: &str, layout_path: &str) -> Post {
     Post {
       source_content: None,
       output_html: None,
       category: "Uncategorized".to_string(),
       title: "Untitled".to_string(),
       source_path: String::from(source_path),
+      layout_path: String::from(layout_path),
     }
   }
 }
@@ -69,11 +75,13 @@ mod tests {
 
     fn sets_the_defaults() {
       let path = "./test/assets/posts/simple.markdown";
-      let post = Post::new(path);
+      let layout_path = "./test/assets/example_src/layout.handlebars";
+      let post = Post::new(path, layout_path);
 
       assert_eq!(post.category, "Uncategorised");
       assert_eq!(post.title, "Untitled");
       assert_eq!(post.source_path, path);
+      assert_eq!(post.layout_path, layout_path);
     }
   }
 
@@ -82,18 +90,24 @@ mod tests {
 
     #[test]
     fn converts_the_html_correctly_with_a_simple_input() {
-      let mut post = Post::new("test/assets/posts/post.markdown");
+      let mut post = Post::new(
+        "test/assets/posts/post.markdown",
+        "./test/assets/example_src/layout.handlebars",
+      );
       post.process();
 
       assert_eq!(
         post.output_html.unwrap(),
-        "<ul>\n<li>This is</li>\n<li>A list</li>\n</ul>\n"
+        "<article><ul>\n<li>This is</li>\n<li>A list</li>\n</ul>\n</article>"
       )
     }
 
     #[test]
     fn saves_the_config_title_and_category_correctly() {
-      let mut post = Post::new("test/assets/posts/post.markdown");
+      let mut post = Post::new(
+        "test/assets/posts/post.markdown",
+        "./test/assets/example_src/layout.handlebars",
+      );
       post.process();
 
       assert_eq!(post.title, "badger");

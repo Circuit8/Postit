@@ -15,19 +15,22 @@
   - ~~Sort out page with new setup~~
 - Write the build script
   - ~~Convert markdown files in posts directory~~
-  - Should wrap pages and posts in a given template? Hmmm
-  - Template should be able to render partials (perhaps the ability to render partials should be a trait?)
+  - ~~Wrap in template~~
   - Copy across HTML to the dist directory
   - Copy across all the styles to the dist directory (dont concat yet)
   - Copy across JS to the dist directory (dont concat yet)
   - Clean the dist directory first
+  - Write test for build script
 - ~~parse yaml config at the top of post markdown~~
+- Deploy to crates.io
+- Create circuit8.dev with Postit
+
+### Extras
+- Allow pages and posts to choose template in frontmatter
+- Allow partials in templates
+- Image handling
 - Create the project build script so can do `postit new`
   - Should have templates for a page, a post, stylesheet etc and folders
   - Make the default home page have links to the latest 5 posts, then another section with all the posts by category (then sorted by date within category)
-- Set up config file for bucket and home page etc.
-- Deploy to crates.io
-- Write test for build script
-- Create circuit8.dev with Postit
 - Write a nice guide on the .readme
 - Put a post about it on circuit8.dev

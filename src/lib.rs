@@ -1,4 +1,4 @@
-// mod commands;
+mod commands;
 mod doc;
 mod page;
 mod partial;
