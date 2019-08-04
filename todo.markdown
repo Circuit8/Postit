@@ -1,36 +1,11 @@
-- ~~Create Post Struct~~
-  - ~~Add path to post struct and make it load from path~~
-- ~~Create Page Struct~~
-  - ~~Pass in string .erb string like we do for post~~
-  - ~~pass in post structs so we can use them in the templates~~
-  - ~~Ignore frontmatter here for now~~
-  - ~~Have output html like post~~
-  - ~~Allow partials in Page struct~~
-  - ~~Add path to page struct and make it load from the file like the post does~~
-- ~~Add `doc` trait~~
-  - ~~Change Page and Post so that `new` doesnt really do much, they both have a `process` or something method which does it all.~~
-  - ~~To implement this trait the type requires an `output_html` and `path`~~
-  - ~~Test~~
-  - ~~Add to post~~
-  - ~~Sort out page with new setup~~
-- Write the build script
-  - ~~Convert markdown files in posts directory~~
-  - ~~Wrap in template~~
-  - Copy across HTML to the dist directory
-  - Copy across all the styles to the dist directory (dont concat yet)
-  - Copy across JS to the dist directory (dont concat yet)
-  - Clean the dist directory first
-  - Write test for build script
-- ~~parse yaml config at the top of post markdown~~
-- Deploy to crates.io
-- Create circuit8.dev with Postit
-
 ### Extras
 - Allow pages and posts to choose template in frontmatter
 - Allow partials in templates
+- Allow grouping posts by category in page
 - Image handling
 - Create the project build script so can do `postit new`
   - Should have templates for a page, a post, stylesheet etc and folders
   - Make the default home page have links to the latest 5 posts, then another section with all the posts by category (then sorted by date within category)
 - Write a nice guide on the .readme
 - Put a post about it on circuit8.dev
+- Deploy to crates.io
