@@ -12,6 +12,7 @@ pub struct Post {
   pub category: String,
   pub source_path: String,
   pub layout_path: String,
+  pub file_name: String,
 }
 
 impl Doc for Post {
@@ -21,8 +22,16 @@ impl Doc for Post {
     match parse_and_find_content(&source_content) {
       Ok((matter, markdown)) => {
         if let Some(yaml) = matter {
-          self.title = yaml["title"].as_str().unwrap().to_string();
-          self.category = yaml["category"].as_str().unwrap().to_string();
+
+          let title = yaml["title"].as_str();
+          if let Some(title) = title {
+            self.title = title.to_string()
+          }
+
+          let category = yaml["category"].as_str();
+          if let Some(category) = category {
+            self.category = category.to_string()
+          }
         }
         return markdown_to_html(&markdown, &ComrakOptions::default());
       }
@@ -58,6 +67,14 @@ impl Doc for Post {
 impl Post {
   pub fn new(source_path: &str, layout_path: &str) -> Post {
     Post {
+      file_name: source_path
+        .split('/')
+        .last()
+        .unwrap()
+        .split('.')
+        .nth(0)
+        .unwrap()
+        .to_string(),
       source_content: None,
       output_html: None,
       category: "Uncategorized".to_string(),

@@ -1,4 +1,4 @@
-mod commands;
+pub mod commands;
 mod doc;
 mod page;
 mod partial;

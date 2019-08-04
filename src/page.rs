@@ -114,6 +114,7 @@ mod tests {
         category: "Badger".to_string(),
         source_path: "test/path.html".to_string(),
         layout_path: "./test/assets/example_src/layout.handlebars".to_string(),
+        file_name: "path".to_string(),
       };
 
       let posts = vec![post];
